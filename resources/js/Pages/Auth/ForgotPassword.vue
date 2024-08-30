@@ -21,11 +21,10 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="密码重置" />
 
         <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-            link that will allow you to choose a new one.
+            请在下方文本框中输入您注册时使用的邮箱地址，我们会向该邮箱发送一封密码重置邮件用于重置您的密码。
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -34,7 +33,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="邮箱" />
 
                 <TextInput
                     id="email"
@@ -51,7 +50,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
+                    发送密码重置邮件
                 </PrimaryButton>
             </div>
         </form>

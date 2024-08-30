@@ -20,6 +20,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'content' => $this->faker->paragraph(),
+            'img_url' => 'https://cdn.jsdelivr.net/gh/neekko33/blog_img/ruby.png',
             'user_id' => 1,
             'category_id' => $this->faker->numberBetween(1, 5),
             'created_at' => $date_time,

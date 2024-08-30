@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('content');
             $table->integer('user_id')->index();
             $table->integer('category_id')->index();
+            $table->string('img_url');
+            $table->boolean('published')->default(false);
             $table->index(['created_at']);
             $table->timestamps();
         });

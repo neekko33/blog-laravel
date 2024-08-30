@@ -17,7 +17,7 @@ class PostTagTableSeeder extends Seeder
         $user = User::all()->first();
         $posts = $user->posts()->get();
 
-        $tags = $user->tags()->get();
+        $tags = $user->tags()->take(3)->get();
         $tag_ids = $tags->pluck('id')->toArray();
 
         foreach ($posts as $post) {
