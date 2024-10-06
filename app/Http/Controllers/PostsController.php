@@ -17,6 +17,7 @@ class PostsController extends Controller
     {
         $posts = Auth::user()
             ->posts()
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
         foreach ($posts as $post) {
             $post['tags'] = $post->tags()->get();
@@ -36,6 +37,26 @@ class PostsController extends Controller
         return redirect()->back();
     }
 
+    public function create(): Response
+    {
+        return Inertia::render('Posts/Create', ['categories' => Category::all(), 'tags' => Tag::all()]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+           'title' => 'required',
+           'img_url' => 'required',
+           'category_id' => 'required',
+           'tags_id' => 'required',
+           'content' => 'required',
+        ]);
+
+        $post = Auth::user()->posts()->create($validated);
+        $post->tags()->sync($validated['tags_id']);
+        return redirect()->route('posts.index');
+    }
+
     public function edit(Post $post): Response
     {
         $post['tags'] = $post->tags()->get();
@@ -47,6 +68,7 @@ class PostsController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'category_id' => 'required',
+            'img_url' => 'required',
             'tags_id' => 'required',
             'content' => 'required',
         ]);
@@ -54,16 +76,6 @@ class PostsController extends Controller
         $post->update($validated);
         $post->tags()->sync($validated['tags_id']);
 
-        return redirect()->back();
-    }
-
-    public function updateImgUrl(Request $request, Post $post): RedirectResponse
-    {
-        $validated = $request->validate([
-            'img_url' => 'required',
-        ]);
-
-        $post->update(['img_url' => $validated['img_url']]);
         return redirect()->back();
     }
 

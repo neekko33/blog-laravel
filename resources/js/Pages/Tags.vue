@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {Head, Link} from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import {Category} from '@/types'
+import {Tag} from '@/types'
 import Table from '@/Components/Table.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
 import {formatDate} from '@/utils'
 
 const props = defineProps<{
-    categories: Category[]
+    tags: Tag[]
 }>()
 
 const tableOptions: { label: string, key?: string, render?: Function }[] = [
@@ -46,7 +46,7 @@ const tableOptions: { label: string, key?: string, render?: Function }[] = [
 
         <div class="py-6">
             <div class="bg-white rounded-md max-w-7xl mx-auto m:px-6 lg:px-8 space-y-6 py-6 shadow">
-                <Table :data="categories" :options="tableOptions">
+                <Table :data="tags" :options="tableOptions">
                     <template #default>
                         <div class="flex justify-around">
                             <SecondaryButton>编辑</SecondaryButton>

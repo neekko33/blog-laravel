@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import Modal from '@/Components/Modal.vue'
+
 const props = defineProps<{
-    options: { label: string, key?: string }[],
+    options: { label: string, key?: string, render?: Function }[],
     data: { id: number }[]
 }>()
 </script>
 
 <template>
+    <Modal>
+
+    </Modal>
     <table class="border border-collapse w-full">
         <thead class="bg-gray-100">
         <tr>
@@ -16,9 +21,14 @@ const props = defineProps<{
         <tr v-for="item in data" :key="item.id">
             <template v-for="(option, index) in options" :key="index">
                 <td v-if="option.key">
-                    {{ item[option.key] }}
+                    <template v-if="option.render">
+                        {{option.render(item[option.key])}}
+                    </template>
+                    <template v-else>
+                        {{ item[option.key] }}
+                    </template>
                 </td>
-                <td v-else>
+                <td v-else class="max-w-[80px]">
                     <slot name="default"></slot>
                 </td>
             </template>

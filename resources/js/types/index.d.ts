@@ -14,7 +14,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 export interface Post {
     id: number,
     title: string,
-    content?: string,
+    content: string,
     img_url: string,
     user_id: number,
     category_id: number,
