@@ -31,8 +31,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/posts/{post}/destroy',[PostsController::class, 'destroy'])->name('posts.destroy');
 
     Route::get('/categories',[CategoriesController::class, 'index'])->name('categories');
+    Route::post('/categories',[CategoriesController::class, 'store'])->name('categories.store');
+    Route::put('/categories/{category}',[CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{category}',[CategoriesController::class, 'destroy'])->name('categories.destroy');
 
     Route::get('/tags',[TagsController::class, 'index'])->name('tags');
+    Route::post('/tags',[TagsController::class, 'store'])->name('tags.store');
+    Route::put('/tags/{tag}',[TagsController::class, 'update'])->name('tags.update');
+    Route::delete('/tags/{tag}',[TagsController::class, 'destroy'])->name('tags.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -54,7 +54,7 @@ class PostsController extends Controller
 
         $post = Auth::user()->posts()->create($validated);
         $post->tags()->sync($validated['tags_id']);
-        return redirect()->route('posts.index');
+        return redirect()->back();
     }
 
     public function edit(Post $post): Response

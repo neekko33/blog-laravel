@@ -29,7 +29,7 @@ const props = defineProps<{
                     </template>
                 </td>
                 <td v-else class="max-w-[80px]">
-                    <slot name="default"></slot>
+                    <slot name="default" :row="item"></slot>
                 </td>
             </template>
         </tr>

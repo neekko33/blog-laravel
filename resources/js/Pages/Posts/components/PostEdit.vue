@@ -7,7 +7,7 @@ import Select from '@/Components/Select.vue'
 import {MdEditor} from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import InputError from '@/Components/InputError.vue'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import AutoCompleteInput from '@/Components/AutoCompleteInput.vue'
 
 const fileName = ref('')
@@ -51,6 +51,15 @@ const back = () => {
     history.back()
 }
 
+const canApply = computed(() => {
+    return hasEmptyInput.value || props.form.processing
+})
+
+const hasEmptyInput = computed(() => {
+    const {title, category_id, img_url, content, tags_id} = props.form
+    return !title || !category_id || !img_url || !content || tags_id.length === 0
+})
+
 </script>
 
 <template>
@@ -64,8 +73,8 @@ const back = () => {
                             @click.prevent="back">返回
                         </button>
                         <button
-                            class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900"
-                            :disabled="form.processing" type="submit">保存
+                            class="bg-gray-800 text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 disabled:opacity-60"
+                            :disabled="canApply" type="submit">保存
                         </button>
                     </div>
                 </div>
