@@ -36,6 +36,9 @@ const onReadFile = async () => {
             return
         }
         fileName.value = fileHandler[0].name
+        if (!props.form.title) {
+            props.form.title = fileName.value.replace('.md', '')
+        }
         const file = await fileHandler[0].getFile()
         const reader = new FileReader()
         reader.onload = () => {
@@ -93,14 +96,14 @@ const hasEmptyInput = computed(() => {
                         </div>
                     </div>
                     <div class="mt-4">
+                        <InputLabel for="description" value="简介"></InputLabel>
+                        <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required />
+                    </div>
+                    <div class="mt-4">
                         <InputLabel for="tag" value="标签"></InputLabel>
                         <AutoCompleteInput id="tag" class="mt-1 block w-full" v-model="form.tags_id"
                                            :data="tags"/>
                         <InputError :message="form.errors.category_id" class="mt-2"/>
-                    </div>
-                    <div class="mt-4">
-                        <InputLabel for="description" value="简介"></InputLabel>
-                        <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required />
                     </div>
                 </div>
                 <div class="mt-5 p-4 sm:p-8 bg-white shadow sm:rounded-lg">

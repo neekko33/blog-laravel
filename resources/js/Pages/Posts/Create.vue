@@ -12,9 +12,9 @@ const props = defineProps<{
 
 const form = useForm({
     title: '',
-    category_id: 0,
-    img_url: '',
+    category_id: 1,
     tags_id: [],
+    description: '',
     content: ''
 })
 

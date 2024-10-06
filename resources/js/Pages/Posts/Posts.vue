@@ -30,11 +30,13 @@ const handleClick = () => {
             </div>
         </template>
         <div class="py-6 grid grid-cols-2 justify-start items-start">
-            <PostItem v-for="post in posts.data" :key="post.id" :post="post" :category="categories.find(item => item.id === post.category_id)" />
+            <PostItem v-for="post in posts.data" :key="post.id" :post="post"
+                      :category="categories.find(item => item.id === post.category_id)"/>
         </div>
-        <div class="py-5 flex justify-center">
-            <Pagination :links="posts.links" />
+        <div class="py-5 flex justify-center" v-if="posts.data?.length > 0">
+            <Pagination :links="posts.links" v-if="posts.links?.length > 3"/>
         </div>
+        <div class="text-gray-400 w-full text-center" v-else>没有更多文章...</div>
     </AuthenticatedLayout>
 </template>
 

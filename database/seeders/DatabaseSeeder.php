@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'neekko33@outlook.com',
         ]);
 
-        Tag::factory(10)->create();
-        Category::factory(10)->create();
-        Post::factory(100)->create();
+//        Tag::factory(10)->create();
+//        Category::factory(10)->create();
+//        Post::factory(100)->create();
 
         $this->call(PostTagTableSeeder::class);
 
