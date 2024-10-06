@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,19 @@ class CategoriesController extends Controller
     {
         $categories = Category::all();
         return Inertia::render('Categories', ['categories' => $categories]);
+    }
+
+    public function apiIndex(): JsonResponse
+    {
+        $categories = Category::all();
+        return response()->json($categories);
+    }
+
+    public function getPostsByCategory($id): JsonResponse
+    {
+        $category = Category::find($id);
+        $posts = $category->posts()->select('title', 'description')->paginate(5);
+        return response()->json($posts);
     }
 
     public function store(Request $request): RedirectResponse

@@ -35,6 +35,13 @@ class PostsController extends Controller
         return response()->json($posts);
     }
 
+    public function apiShow($id): JsonResponse
+    {
+        $post = Post::find($id);
+        $post['tags'] = $post->tags()->get();
+        return response()->json($post);
+    }
+
     public function publish(Post $post): RedirectResponse
     {
         $post->update(['published' => true]);
