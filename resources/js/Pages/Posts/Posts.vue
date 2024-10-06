@@ -29,13 +29,12 @@ const handleClick = () => {
                 <SecondaryButton @click="handleClick">新增文章</SecondaryButton>
             </div>
         </template>
-        <div class="py-12">
+        <div class="py-6 grid grid-cols-2 justify-start items-start">
             <PostItem v-for="post in posts.data" :key="post.id" :post="post" :category="categories.find(item => item.id === post.category_id)" />
-            <div class="pt-5 flex justify-center">
-                <Pagination :links="posts.links" />
-            </div>
         </div>
-
+        <div class="py-5 flex justify-center">
+            <Pagination :links="posts.links" />
+        </div>
     </AuthenticatedLayout>
 </template>
 

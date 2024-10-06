@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +19,20 @@ class PostsController extends Controller
         $posts = Auth::user()
             ->posts()
             ->orderBy('created_at', 'desc')
-            ->paginate(5);
+            ->paginate(10);
         foreach ($posts as $post) {
             $post['tags'] = $post->tags()->get();
         }
         return Inertia::render('Posts/Posts', ['posts' => $posts, 'categories' => Category::all()]);
+    }
+
+    public function apiIndex(): JsonResponse
+    {
+        $posts = Post::where('published', false)->select('id', 'title', 'description', 'created_at')->paginate(5);
+        foreach ($posts as $post) {
+            $post['tags'] = $post->tags()->get();
+        }
+        return response()->json($posts);
     }
 
     public function publish(Post $post): RedirectResponse
@@ -46,7 +56,7 @@ class PostsController extends Controller
     {
         $validated = $request->validate([
            'title' => 'required',
-           'img_url' => 'required',
+           'description' => 'required',
            'category_id' => 'required',
            'tags_id' => 'required',
            'content' => 'required',
@@ -68,7 +78,7 @@ class PostsController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'category_id' => 'required',
-            'img_url' => 'required',
+            'description' => 'required',
             'tags_id' => 'required',
             'content' => 'required',
         ]);

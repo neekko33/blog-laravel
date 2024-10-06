@@ -15,7 +15,7 @@ export interface Post {
     id: number,
     title: string,
     content: string,
-    img_url: string,
+    description: string,
     user_id: number,
     category_id: number,
     tags: Tag[],

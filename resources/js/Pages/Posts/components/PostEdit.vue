@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {InertiaForm} from '@inertiajs/vue3'
-import {Post, Category, Tag} from '@/types'
+import { Category, Tag} from '@/types'
 import InputLabel from '@/Components/InputLabel.vue'
 import TextInput from '@/Components/TextInput.vue'
 import Select from '@/Components/Select.vue'
@@ -16,7 +16,7 @@ interface FormProps {
     title: string,
     category_id: number,
     tags_id: number[],
-    img_url: string,
+    description: string,
     content: string
 }
 
@@ -56,8 +56,8 @@ const canApply = computed(() => {
 })
 
 const hasEmptyInput = computed(() => {
-    const {title, category_id, img_url, content, tags_id} = props.form
-    return !title || !category_id || !img_url || !content || tags_id.length === 0
+    const {title, category_id, description, content, tags_id} = props.form
+    return !title || !category_id || !description || !content || tags_id.length === 0
 })
 
 </script>
@@ -85,15 +85,11 @@ const hasEmptyInput = computed(() => {
                             <TextInput id="title" class="mt-1 block w-full" v-model="form.title" required/>
                             <InputError :message="form.errors.title" class="mt-2"/>
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-2">
                             <InputLabel for="title" value="分类"></InputLabel>
                             <Select id="title" class="mt-1 block w-full" v-model="form.category_id"
                                     :data="categories"/>
                             <InputError :message="form.errors.category_id" class="mt-2"/>
-                        </div>
-                        <div class="flex-1">
-                            <InputLabel for="url" value="封面图"></InputLabel>
-                            <TextInput id="url" class="mt-1 block w-full" v-model="form.img_url" required />
                         </div>
                     </div>
                     <div class="mt-4">
@@ -101,6 +97,10 @@ const hasEmptyInput = computed(() => {
                         <AutoCompleteInput id="tag" class="mt-1 block w-full" v-model="form.tags_id"
                                            :data="tags"/>
                         <InputError :message="form.errors.category_id" class="mt-2"/>
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="description" value="简介"></InputLabel>
+                        <TextInput id="description" class="mt-1 block w-full" v-model="form.description" required />
                     </div>
                 </div>
                 <div class="mt-5 p-4 sm:p-8 bg-white shadow sm:rounded-lg">

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
+            $table->text('description');
             $table->integer('user_id')->index();
             $table->integer('category_id')->index();
-            $table->string('img_url');
             $table->boolean('published')->default(false);
             $table->index(['created_at']);
             $table->timestamps();

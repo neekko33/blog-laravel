@@ -16,7 +16,7 @@ const form = useForm({
     title: props.post.title,
     category_id: props.post.category_id,
     tags_id: props.post.tags.map(tag => tag.id),
-    img_url: props.post.img_url,
+    description: props.post.description,
     content: props.post.content
 })
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {Category, Post} from '@/types'
-import {formatDate} from '@/utils'
-import {Link, router, useForm} from '@inertiajs/vue3'
+import { Category, Post } from '@/types'
+import { formatDate } from '@/utils'
+import { Link, router, useForm } from '@inertiajs/vue3'
 
 const props = defineProps<{ post: Post, category: Category }>()
 
@@ -17,7 +17,7 @@ const onDelete = () => {
 }
 
 const changeImgUrl = () => {
-    form.post(`/posts/${props.post.id}/updateImgUrl`,{
+    form.post(`/posts/${props.post.id}/updateImgUrl`, {
         onSuccess: () => {
             closeModal()
         }
@@ -27,15 +27,13 @@ const changeImgUrl = () => {
 </script>
 
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-2">
+    <div class="px-6 py-2 mx-auto w-full">
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex">
-            <div class="post-img relative flex items-center justify-center">
-                <img class="w-full" :src="post.img_url" :alt="post.title"/>
-            </div>
-            <div class="flex-1 px-8 flex flex-col justify-between text-gray-500">
+            <div class="flex-1 px-8 flex flex-col justify-between text-gray-500 ellipsis">
                 <div>标题：{{ post.title }}</div>
                 <div>分类：{{ category.name }}</div>
                 <div>标签：<span v-for="(tag, index) in post.tags" :key="index" class="mr-2">#{{ tag.name }}</span></div>
+                <div>简介：{{post.description}}</div>
                 <div>创建日期：{{ formatDate(post.created_at) }}</div>
                 <div>修改日期：{{ formatDate(post.updated_at) }}</div>
             </div>
@@ -61,6 +59,10 @@ const changeImgUrl = () => {
 .post-img {
     width: 200px;
     height: 150px;
+}
+
+.ellipsis div {
+    @apply w-[28rem] overflow-hidden overflow-ellipsis whitespace-nowrap
 }
 
 .options button {
