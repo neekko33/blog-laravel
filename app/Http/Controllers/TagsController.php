@@ -20,7 +20,7 @@ class TagsController extends Controller
 
     public function apiIndex(): JsonResponse
     {
-        $tags = Tag::all();
+        $tags = Tag::withCount('posts')->select('id', 'name')->get();
         return response()->json($tags);
     }
 

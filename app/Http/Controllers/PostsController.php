@@ -18,20 +18,19 @@ class PostsController extends Controller
     {
         $posts = Auth::user()
             ->posts()
+            ->with('tags')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        foreach ($posts as $post) {
-            $post['tags'] = $post->tags()->get();
-        }
         return Inertia::render('Posts/Posts', ['posts' => $posts, 'categories' => Category::all()]);
     }
 
     public function apiIndex(): JsonResponse
     {
-        $posts = Post::where('published', false)->select('id', 'title', 'description', 'created_at')->paginate(5);
-        foreach ($posts as $post) {
-            $post['tags'] = $post->tags()->get();
-        }
+        $posts = Post::where('published', true)
+            ->with('tags')
+            ->select('id', 'title', 'description', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         return response()->json($posts);
     }
 

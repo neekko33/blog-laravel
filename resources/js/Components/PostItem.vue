@@ -1,27 +1,16 @@
 <script setup lang="ts">
 import { Category, Post } from '@/types'
 import { formatDate } from '@/utils'
-import { Link, router, useForm } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3'
+import SecondaryButton from '@/Components/SecondaryButton.vue'
 
 const props = defineProps<{ post: Post, category: Category }>()
-
-const form = useForm({
-    img_url: props.post.img_url
-})
 
 const onDelete = () => {
     const confirm = window.confirm('确认删除该文章？')
     if (confirm) {
         router.delete(`/posts/${props.post.id}/destroy`)
     }
-}
-
-const changeImgUrl = () => {
-    form.post(`/posts/${props.post.id}/updateImgUrl`, {
-        onSuccess: () => {
-            closeModal()
-        }
-    })
 }
 
 </script>
@@ -39,17 +28,15 @@ const changeImgUrl = () => {
             </div>
             <div class="options flex flex-col justify-between">
                 <Link :href="`/posts/${post.id}/publish`" method="post" as="button" type="button"
-                      class="bg-gray-400 hover:bg-gray-300 rounded text-white" v-if="!post.published">
+                      class="bg-gray-400 hover:bg-gray-300 rounded text-white py-1" v-if="!post.published">
                     未发布
                 </Link>
                 <Link :href="`/posts/${post.id}/unpublish`" as="button" method="post"
-                      class="bg-green-500 hover:bg-green-400 rounded text-white" v-else>
+                      class="bg-green-500 hover:bg-green-400 rounded text-white py-1 text-sm" v-else>
                     已发布
                 </Link>
-                <Link :href="`/posts/${post.id}/edit`" method="get" as="button" type="button"
-                      class="bg-blue-500 rounded text-white hover:bg-blue-400">编辑
-                </Link>
-                <button class="bg-red-500 rounded text-white hover:bg-red-400" @click="onDelete">删除</button>
+                <SecondaryButton :href="`/posts/${post.id}/edit`">编辑</SecondaryButton>
+                <SecondaryButton @click="onDelete">删除</SecondaryButton>
             </div>
         </div>
     </div>
@@ -66,6 +53,6 @@ const changeImgUrl = () => {
 }
 
 .options button {
-    @apply px-5 py-1 rounded font-bold
+    @apply rounded font-bold
 }
 </style>

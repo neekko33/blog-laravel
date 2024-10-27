@@ -20,14 +20,14 @@ class CategoriesController extends Controller
 
     public function apiIndex(): JsonResponse
     {
-        $categories = Category::all();
+        $categories = Category::withCount('posts')->get();
         return response()->json($categories);
     }
 
     public function getPostsByCategory($id): JsonResponse
     {
         $category = Category::find($id);
-        $posts = $category->posts()->select('title', 'description')->paginate(5);
+        $posts = $category->posts()->with('tags')->orderBy('created_at', 'desc')->paginate(5);
         return response()->json($posts);
     }
 
