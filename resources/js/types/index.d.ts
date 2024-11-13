@@ -18,6 +18,7 @@ export interface Post {
     description: string,
     user_id: number,
     category_id: number,
+    category: Category,
     tags: Tag[],
     published: boolean,
     created_at: Date,

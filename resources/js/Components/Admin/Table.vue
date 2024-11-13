@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Modal from '@/Components/Modal.vue'
+import Modal from '@/Components/Admin/Modal.vue'
 import { Category, Post, Tag } from '@/types';
 
 const props = defineProps<{

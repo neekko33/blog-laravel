@@ -2,9 +2,9 @@
 import {Head, Link, router} from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import {Tag} from '@/types'
-import Table from '@/Components/Table.vue'
-import PrimaryButton from '@/Components/PrimaryButton.vue'
-import SecondaryButton from '@/Components/SecondaryButton.vue'
+import Table from '@/Components/Admin/Table.vue'
+import PrimaryButton from '@/Components/Admin/PrimaryButton.vue'
+import SecondaryButton from '@/Components/Admin/SecondaryButton.vue'
 import {formatDate} from '@/utils'
 
 const props = defineProps<{

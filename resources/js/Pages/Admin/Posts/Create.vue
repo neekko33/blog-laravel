@@ -2,26 +2,24 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import {Head, useForm, router} from '@inertiajs/vue3'
 import {Post, Category, Tag} from '@/types'
-import PostEdit from '@/Pages/Posts/components/PostEdit.vue'
+import PostEdit from '@/Pages/Admin/Posts/components/PostEdit.vue'
 
 
 const props = defineProps<{
-    post: Post,
     categories: Category[],
     tags: Tag[]
 }>()
 
 const form = useForm({
-    id: props.post.id,
-    title: props.post.title,
-    category_id: props.post.category_id,
-    tags_id: props.post.tags.map(tag => tag.id),
-    description: props.post.description,
-    content: props.post.content
+    title: '',
+    category_id: 1,
+    tags_id: [],
+    description: '',
+    content: ''
 })
 
 const submit = () => {
-    form.put(`/posts/${props.post.id}/update`, {
+    form.post(`/posts`, {
         preserveScroll: true,
         onSuccess: () => {
             router.get('/posts')
@@ -32,10 +30,10 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="文章编辑"></Head>
+    <Head title="新增文章"></Head>
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">文章编辑</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">新增文章</h2>
         </template>
         <PostEdit :form="form" :categories="categories" :tags="tags" :submit="submit"/>
     </AuthenticatedLayout>

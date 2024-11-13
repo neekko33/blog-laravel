@@ -19,9 +19,10 @@ class PostsController extends Controller
         $posts = Auth::user()
             ->posts()
             ->with('tags')
+            ->with('category')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return Inertia::render('Posts/Posts', ['posts' => $posts, 'categories' => Category::all()]);
+        return Inertia::render('Admin/Posts/Posts', ['posts' => $posts]);
     }
 
     public function apiIndex(): JsonResponse
@@ -55,7 +56,7 @@ class PostsController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Posts/Create', ['categories' => Category::all(), 'tags' => Tag::all()]);
+        return Inertia::render('Admin/Posts/Create', ['categories' => Category::all(), 'tags' => Tag::all()]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -76,7 +77,7 @@ class PostsController extends Controller
     public function edit(Post $post): Response
     {
         $post['tags'] = $post->tags()->get();
-        return Inertia::render('Posts/Edit', ['post' => $post, 'categories' => Category::all(), 'tags' => Tag::all()]);
+        return Inertia::render('Admin/Posts/Edit', ['post' => $post, 'categories' => Category::all(), 'tags' => Tag::all()]);
     }
 
     public function update(Request $request, Post $post): RedirectResponse

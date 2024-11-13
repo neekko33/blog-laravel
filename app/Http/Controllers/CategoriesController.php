@@ -15,7 +15,7 @@ class CategoriesController extends Controller
     public function index(): Response
     {
         $categories = Category::all();
-        return Inertia::render('Categories', ['categories' => $categories]);
+        return Inertia::render('Admin/Categories', ['categories' => $categories]);
     }
 
     public function apiIndex(): JsonResponse

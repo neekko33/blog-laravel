@@ -15,7 +15,7 @@ class TagsController extends Controller
     public function index(): Response
     {
         $tags = Tag::all();
-        return Inertia::render('Tags', ['tags' => $tags]);
+        return Inertia::render('Admin/Tags', ['tags' => $tags]);
     }
 
     public function apiIndex(): JsonResponse

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {InertiaForm} from '@inertiajs/vue3'
 import { Category, Tag} from '@/types'
-import InputLabel from '@/Components/InputLabel.vue'
-import TextInput from '@/Components/TextInput.vue'
-import Select from '@/Components/Select.vue'
+import InputLabel from '@/Components/Admin/InputLabel.vue'
+import TextInput from '@/Components/Admin/TextInput.vue'
+import Select from '@/Components/Admin/Select.vue'
 import {MdEditor} from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
-import InputError from '@/Components/InputError.vue'
+import InputError from '@/Components/Admin/InputError.vue'
 import {computed, ref} from 'vue'
-import AutoCompleteInput from '@/Components/AutoCompleteInput.vue'
+import AutoCompleteInput from '@/Components/Admin/AutoCompleteInput.vue'
 
 const fileName = ref('')
 
